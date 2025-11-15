@@ -6,6 +6,8 @@ var local: AppleLocalPlayer
 func _ready() -> void:
 	gameCenter = GameCenterManager.new()
 	local = gameCenter.local_player
+	#var my_strings: Array[String] = 
+	gameCenter.load_leaderboards(["BOARD_1", "BOARD_2"])
 	print("ONREADY: game center, is %s" % gameCenter)
 	print("ONREADY: local, is auth: %s" % local.is_authenticated)
 	print("ONREADY: local, player ID: %s" % local.game_player_id)

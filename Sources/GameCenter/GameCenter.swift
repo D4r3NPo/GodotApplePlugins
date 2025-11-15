@@ -5,7 +5,7 @@
 //  Created by Miguel de Icaza on 11/15/25.
 //
 
-import SwiftGodotRuntime
+@preconcurrency import SwiftGodotRuntime
 import SwiftUI
 #if canImport(UIKit)
 import UIKit
@@ -14,64 +14,6 @@ import AppKit
 #endif
 
 import GameKit
-
-@Godot
-class ApplePlayer: RefCounted, @unchecked Sendable {
-    var player: GKPlayer
-    required init(_ context: InitContext) {
-        fatalError("ApplePlayer should only be constructed via GameCenterManager")
-    }
-
-    @Export var gamePlayerID: String { player.gamePlayerID }
-    @Export var teamPlayerID: String { player.teamPlayerID }
-    @Export var alias: String { player.alias }
-    @Export var displayName: String { player.displayName }
-    @Export var isInvitable: Bool { player.isInvitable }
-
-    @Callable
-    func scopedIDsArePersistent() -> Bool {
-        player.scopedIDsArePersistent()
-    }
-
-    @Callable
-    func load_photo(_ small: Bool, _ callback: Callable) {
-        GD.print("request to load photo")
-        player.loadPhoto(for: small ? .small : .normal) { img, error in
-            GD.print("Result from loadPhoto: \(String(describing: img)) \(String(describing: error))")
-            if let img, let png = img.pngData() {
-                let array = PackedByteArray([UInt8](png))
-                DispatchQueue.main.async {
-                    callback.call(Variant(array))
-                }
-            }
-        }
-    }
-
-    init(player: GKPlayer) {
-        self.player = player
-        guard let ctxt = InitContext.createObject(className: ApplePlayer.godotClassName) else {
-            fatalError("Could not create object")
-        }
-        super.init(ctxt)
-    }
-}
-
-@Godot
-class AppleLocalPlayer: ApplePlayer, @unchecked Sendable {
-    required init(_ context: InitContext) {
-        super.init(context)
-        player = GKLocalPlayer.local
-    }
-
-    init() {
-        super.init(player: GKLocalPlayer.local)
-    }
-
-    @Export var isAuthenticated: Bool { GKLocalPlayer.local.isAuthenticated }
-    @Export var isUnderage: Bool { GKLocalPlayer.local.isUnderage }
-    @Export var isMultiplayerGamingRestricted: Bool { GKLocalPlayer.local.isMultiplayerGamingRestricted }
-    @Export var isPersonalizedCommunicationRestricted: Bool { GKLocalPlayer.local.isPersonalizedCommunicationRestricted }
-}
 
 @Godot
 class GameCenterManager: RefCounted, @unchecked Sendable {
@@ -90,7 +32,6 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
     @Callable
     func authenticate() {
         let localPlayer = GKLocalPlayer.local
-        var x = AppleLocalPlayer()
         localPlayer.authenticateHandler = { viewController, error in
             GD.print("AppleLocalPlayer: authentication callback")
             MainActor.assumeIsolated {
@@ -109,12 +50,27 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
                 self.authentication_result.emit(self.isAuthenticated)
             }
         }
+    }
 
+    @Callable
+    func load_leaderboards(_ ids: [String], callback: Callable) {
+        GKLeaderboard.loadLeaderboards(IDs: ids.count == 0 ? nil : ids) { result, error in
+            let wrapped = VariantArray()
+            if let result {
+                for l in result {
+                    if let wrap = AppleLeaderboard(board: l) {
+                        wrapped.append(Variant(wrap))
+                    }
+                }
+            }
+            _ = callback.call(Variant(wrapped))
+        }
     }
 }
 
 #initSwiftExtension(cdecl: "godot_game_center_init", types: [
     GameCenterManager.self,
     AppleLocalPlayer.self,
-    ApplePlayer.self
+    ApplePlayer.self,
+    AppleLeaderboard.self
 ])
