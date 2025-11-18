@@ -87,7 +87,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
             } else if let error {
                 _ = callback.call(nil, Variant(error.localizedDescription))
             } else {
-                _ = callback.call(nil Variant("Could not load leaderboard image"))
+                _ = callback.call(nil, Variant("Could not load leaderboard image"))
             }
         }
     }
@@ -107,16 +107,15 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
         GameKit.GKLeaderboard.loadLeaderboards(IDs: sids) { result, error in
             let wrapped = VariantArray()
             if let error {
-                _ callback.call(nil, Variant(String(describing: error)))
+                _ = callback.call(nil, Variant(String(describing: error)))
             } else if let result {
                 for l in result {
                     let wrap = GKLeaderboard(board: l)
                     wrapped.append(Variant(wrap))
                 }
+            } else {
+                _ = callback.call(Variant(wrapped), nil)
             }
-            _ = callback.call(Variant(wrapped), nil)
-        } else {
-            _ = callback.call(Variant(VariantArray()), nil)
         }
     }
 }
