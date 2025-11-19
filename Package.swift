@@ -23,11 +23,6 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "GameCenter",
-            type: .dynamic,
-            targets: ["GameCenter"]
-        ),
-        .library(
             name: "GodotApplePlugins",
             type: .dynamic,
             targets: ["GodotApplePlugins"]
@@ -39,14 +34,6 @@ let package = Package(
 //        .package(path: "../splitSwiftGodot")
     ],
     targets: [
-        .target(
-            name: "GameCenter",
-            dependencies: [
-                .product(name: "SwiftGodotRuntimeStatic", package: "SwiftGodot")
-            ],
-            swiftSettings: swiftSettings,
-            linkerSettings: linkerSettings
-        ),
         .target(
             name: "GodotApplePlugins",
             dependencies: [

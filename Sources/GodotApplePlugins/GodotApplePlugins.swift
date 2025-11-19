@@ -8,5 +8,15 @@
 import SwiftGodotRuntime
 
 #initSwiftExtension(cdecl: "godot_apple_plugins_start", types: [
-    GodotAVAudioSession.self
+    AVAudioSession.self,
+    GameCenterManager.self,
+    GKAchievement.self,
+    GKAchievementDescription.self,
+    GKLocalPlayer.self,
+    GKLeaderboard.self,
+    GKLeaderboardSet.self,
+    GKMatch.self,
+    GKMatchmakerViewController.self,
+    GKMatchRequest.self,
+    GKPlayer.self,
 ])

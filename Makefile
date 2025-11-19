@@ -4,21 +4,14 @@ PHONY: run xcframework
 CONFIG ?= Debug
 DESTINATION ?= generic/platform=iOS
 DESTINATIONS ?= generic/platform=iOS generic/platform=macOS
-DERIVED_DATA ?= $(CURDIR)/build/xcodebuild
+DERIVED_DATA ?= $(CURDIR)/.xcodebuild
 WORKSPACE ?= .swiftpm/xcode/package.xcworkspace
 SCHEME ?= GodotApplePlugins
-FRAMEWORK_NAMES ?= GodotApplePlugins GameCenter
+FRAMEWORK_NAMES ?= GodotApplePlugins
 XCODEBUILD ?= xcodebuild
 
 run:
-	@set -e; \
-	$(XCODEBUILD) \
-		-workspace '$(WORKSPACE)' \
-		-scheme '$(SCHEME)' \
-		-configuration '$(CONFIG)' \
-		-destination '$(DESTINATION)' \
-		-derivedDataPath '$(DERIVED_DATA)' \
-		build
+	@echo -e "Run make xcframework to produce the binary payloads for all platforms"
 
 xcframework-prep:
 	@set -e; \
@@ -43,19 +36,19 @@ xcframework: xcframework-prep
 			-output $(CURDIR)/addons/$$framework/bin/$${framework}.xcframework; \
 	done
 
-XCFRAMEWORK_GAMECENTER ?= $(CURDIR)/addons/GameCenter/bin/GameCenter.xcframework
+XCFRAMEWORK_GODOTAPPLEPLUGINS ?= $(CURDIR)/addons/GodotApplePlugins/bin/GodotApplePlugins.xcframework
 
 #
 # Quick hacks I use for rapid iteration
 #
-
-# This one just gets me a GameCenter I can test on desktop quickly
-q:
-	make xcframework FRAMEWORK_NAMES=GameCenter
-
+# My hack is that I build on Xcode for Mac and iPad first, then I
+# iterate by just rebuilding in one platform, and then running
+# "make o" here over and over, and my Godot project already has a
+# symlink here, so I can test quickly on desktop against the Mac 
+# API.
 o:
-	rm -rf '$(XCFRAMEWORK_GAMECENTER)'; \
+	rm -rf '$(XCFRAMEWORK_GODOTAPPLEPLUGINS)'; \
 	$(XCODEBUILD) -create-xcframework \
-		-framework ~/DerivedData/GodotApplePlugins-*/Build/Products/Debug-iphoneos/PackageFrameworks/GameCenter.framework/ \
-		-framework ~/DerivedData/GodotApplePlugins-*/Build/Products/Debug/PackageFrameworks/GameCenter.framework/ \
-		-output '$(XCFRAMEWORK_GAMECENTER)'
+		-framework ~/DerivedData/GodotApplePlugins-*/Build/Products/Debug-iphoneos/PackageFrameworks/GodotApplePlugins.framework/ \
+		-framework ~/DerivedData/GodotApplePlugins-*/Build/Products/Debug/PackageFrameworks/GodotApplePlugins.framework/ \
+		-output '$(XCFRAMEWORK_GODOTAPPLEPLUGINS)'

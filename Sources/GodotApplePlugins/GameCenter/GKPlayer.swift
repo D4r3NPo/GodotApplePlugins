@@ -45,22 +45,24 @@ class GKPlayer: RefCounted, @unchecked Sendable {
     }
 
     /// Callback is invoked with two parameters:
-    /// (imageData: PackedByteArray, erro: String)
+    /// (imageData: Image, erro: String)
     ///
     /// One of those two is nil.
     @Callable
     func load_photo(_ small: Bool, _ callback: Callable) {
-        GD.print("request to load photo")
         player.loadPhoto(for: small ? .small : .normal) { img, error in
-            GD.print("Result from loadPhoto: \(String(describing: img)) \(String(describing: error))")
             DispatchQueue.main.async {
-                if let img, let png = img.pngData() {
-                    let array = PackedByteArray([UInt8](png))
-                    _ = callback.call(Variant(array), nil)
+                if let img {
+                    if let godotImage = img.asGodotImage() {
+                        _ = callback.call(Variant(godotImage), nil)
+                    } else {
+                        _ = callback.call(nil, Variant(String("Could not convert image")))
+                    }
+                }
+                if let error {
+                    _ = callback.call(nil, Variant(String(describing: error)))
                     return
                 }
-                _ = callback.call(nil, Variant(String(describing: error)))
-                return
             }
         }
     }

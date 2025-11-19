@@ -7,6 +7,7 @@
 
 #if canImport(AppKit)
 import AppKit
+import SwiftGodotRuntime
 
 @MainActor
 func presentOnTop(_ vc: NSViewController) {
@@ -35,6 +36,20 @@ extension NSImage {
             return rep.representation(using: .png, properties: [:])
         }
 
+        return nil
+    }
+
+    func asGodotImage() -> Variant? {
+        guard let png = self.pngData() else { return nil }
+        let array = PackedByteArray([UInt8](png))
+        if let image = ClassDB.instantiate(class: "Image") {
+            switch image.call(method: "load_png_from_buffer", Variant(array)) {
+            case .success(_):
+                return Variant(image)
+            case .failure(_):
+                return nil
+            }
+        }
         return nil
     }
 }

@@ -35,7 +35,7 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
         ) {
             let result = VariantArray()
             for player in players {
-                result.append(Variant(GameCenter.GKPlayer(player: player)))
+                result.append(Variant(GKPlayer(player: player)))
             }
             base?.did_find_hosted_players.emit(result)
         }

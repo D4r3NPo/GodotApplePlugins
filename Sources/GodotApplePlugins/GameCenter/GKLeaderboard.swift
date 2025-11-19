@@ -77,14 +77,13 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
     }
 
     /// Loads the image for the leaderboard, the call back is invoked with two arguments
-    /// a PackedByteArray with the image as the first argument, an any error as the second.
+    /// a n Image as the first argument, an any error as the second.
     /// either one can be nil.
     @Callable()
     func load_image(callback: Callable) {
         board.loadImage { image, error in
-            if let image, let png = image.pngData() {
-                let array = PackedByteArray([UInt8](png))
-                _ = callback.call(Variant(array), nil)
+            if let image, let godotImage = image.asGodotImage() {
+                _ = callback.call(godotImage, nil)
             } else if let error {
                 _ = callback.call(nil, Variant(error.localizedDescription))
             } else {

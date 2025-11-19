@@ -45,6 +45,22 @@ extension UIViewController {
     }
 }
 
+extension UIImage {
+    func asGodotImage() -> Variant? {
+        guard let png = img.pngData() else { return nil }
+        let array = PackedByteArray([UInt8](png))
+        if let image = ClassDB.instantiate(class: "Image") {
+            switch image.call(method: "load_png_from_buffer", Variant(array)) {
+            case .success(_):
+                return Variant(image)
+            case .failure(_):
+                return nil
+            }
+        }
+        return nil
+    }
+}
+
 @MainActor
 func topMostViewController() -> UIViewController? {
     UIApplication.shared.topMostViewController

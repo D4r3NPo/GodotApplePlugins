@@ -54,6 +54,7 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
 
 }
 
+#if standalone
 #initSwiftExtension(cdecl: "godot_game_center_init", types: [
     GameCenterManager.self,
     GKAchievement.self,
@@ -66,3 +67,4 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
     GKMatchRequest.self,
     GKPlayer.self,
 ])
+#endif

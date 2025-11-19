@@ -112,16 +112,15 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
         }
     }
 
-    /// Callback is invoked with two arguments an PackedByteArray witht he image and an error argument
+    /// Callback is invoked with two arguments an Image witht he image and an error argument
     /// either one can be nil.
     @Callable
     func load_image(callback: Callable) {
         achievementDescription.loadImage { image, error in
             if let error {
                 _ = callback.call(nil, Variant(error.localizedDescription))
-            } else if let image, let png = image.pngData() {
-                let array = PackedByteArray([UInt8](png))
-                _ = callback.call(Variant(array), nil)
+            } else if let image, let godotImage = image.asGodotImage() {
+                _ = callback.call(godotImage, nil)
             } else {
                 _ = callback.call(nil, Variant("Could not load image"))
             }
