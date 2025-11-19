@@ -19,6 +19,4 @@ import SwiftGodotRuntime
     GKMatchmakerViewController.self,
     GKMatchRequest.self,
     GKPlayer.self,
-], enums: [
-    GKMatch.SendDataMode.self
 ])
