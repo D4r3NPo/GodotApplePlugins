@@ -1,9 +1,0 @@
-[configuration]
-
-entry_symbol = "godot_game_center_init"
-compatibility_minimum = 4.4
-
-[libraries]
-ios = "res://addons/GameCenter/bin/GameCenter.xcframework"
-#macos = "res://addons/GameCenter/bin/GameCenter.xcframework/macos-arm64_x86_64/GameCenter.framework/GameCenter"
-macos = "res://addons/GameCenter/bin/GameCenter.xcframework/macos-arm64/GameCenter.framework/GameCenter"
