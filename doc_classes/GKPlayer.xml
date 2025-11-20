@@ -4,18 +4,18 @@
 	Represents any Game Center player (local or remote).
 	</brief_description>
 	<description>
-	[code]GKPlayer[/code] is the shared base type for friends, opponents, and the local user. Use it to access Apple-provided identifiers plus helper methods such as [method load_photo], as referenced in the "Players" section of [code]GameCenterGuide.md[/code]. Apple&#39;s reference lives at [url]https://developer.apple.com/documentation/gamekit/gkplayer[/url].
+	[code]GKPlayer[/code] is the shared base type for friends, opponents, and the local user. Use it to access Apple-provided identifiers plus helper methods such as [method load_photo], as referenced in the "Players" section of [code]GameCenterGuide.md[/code]. Apple&#39;s reference lives at [url=https://developer.apple.com/documentation/gamekit/gkplayer]Apple&#39;s GKPlayer documentation[/url].
 
 	Loading a player photo (guide sample):
 	[codeblock]
 	[gdscript]
-# Put the downloaded image inside a TextureRect named $texture_rect.
-local_player.load_photo(true, func(image: Image, error: Variant) -> void:
-    if error == null:
-        $texture_rect.texture = ImageTexture.create_from_image(image)
-    else:
-        print("Could not load photo %s" % error)
-)
+	# Put the downloaded image inside a TextureRect named $texture_rect.
+	local_player.load_photo(true, func(image: Image, error: Variant) -> void:
+	    if error == null:
+	        $texture_rect.texture = ImageTexture.create_from_image(image)
+	    else:
+	        print("Could not load photo %s" % error)
+	)
 	[/gdscript]
 	[/codeblock]
 	</description>

@@ -14,6 +14,7 @@ run:
 
 build:
 	set -e; \
+	swift build; \
 	for dest in $(DESTINATIONS); do \
 		suffix=`echo $$dest | sed 's,generic/platform=[a-zA-Z]*,,' | sed 's,platform=[a-zA-Z]*,,' | sed 's/,arch=//'`; \
 		echo HERE: $$suffix; \

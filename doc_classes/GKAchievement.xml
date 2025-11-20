@@ -4,50 +4,50 @@
 	Represents an Apple Game Center achievement and provides helper methods to manage progress.
 	</brief_description>
 	<description>
-	Use [code]GKAchievement[/code] to mirror the player&#39;s progress that you configured on App Store Connect. The static helpers expose the same workflows mentioned in the Achievements section of [code]GameCenterGuide.md[/code]: listing the player&#39;s reported achievements, resetting them during testing, and sending new completion percentages. Apple&#39;s API reference is available at [url]https://developer.apple.com/documentation/gamekit/gkachievement[/url].
+	Use [code]GKAchievement[/code] to mirror the player&#39;s progress that you configured on App Store Connect. The static helpers expose the same workflows mentioned in the Achievements section of [code]GameCenterGuide.md[/code]: listing the player&#39;s reported achievements, resetting them during testing, and sending new completion percentages. Apple&#39;s API reference is available at [url=https://developer.apple.com/documentation/gamekit/gkachievement]Apple&#39;s GKAchievement reference[/url].
 
 	List all achievements (straight from the guide):
 	[codeblock]
 	[gdscript]
-GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant) -> void:
-    if error:
-        print("Load achievement error %s" % error)
-    else:
-        for achievement in achievements:
-            print("Achievement: %s" % achievement.identifier)
-)
+	GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant) -> void:
+	    if error:
+	        print("Load achievement error %s" % error)
+	    else:
+	        for achievement in achievements:
+	            print("Achievement: %s" % achievement.identifier)
+	)
 	[/gdscript]
 	[/codeblock]
 
 	Report progress and reset utilities:
 	[codeblock]
 	[gdscript]
-var id := "a001"
-var percentage := 100.0
+	var id := "a001"
+	var percentage := 100.0
 
-GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant) -> void:
-    if error:
-        print("Load achievement error %s" % error)
-        return
+	GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant) -> void:
+	    if error:
+	        print("Load achievement error %s" % error)
+	        return
 
-    for achievement in achievements:
-        if achievement.identifier == id and not achievement.is_completed:
-            achievement.percent_complete = percentage
-            achievement.shows_completion_banner = true
-            GKAchievement.report_achivement([achievement], func(submit_error: Variant) -> void:
-                if submit_error:
-                    print("Error submitting achievement %s" % submit_error)
-                else:
-                    print("Success!")
-            )
-)
+	    for achievement in achievements:
+	        if achievement.identifier == id and not achievement.is_completed:
+	            achievement.percent_complete = percentage
+	            achievement.shows_completion_banner = true
+	            GKAchievement.report_achivement([achievement], func(submit_error: Variant) -> void:
+	                if submit_error:
+	                    print("Error submitting achievement %s" % submit_error)
+	                else:
+	                    print("Success!")
+	            )
+	)
 
-GKAchievement.reset_achivements(func(error: Variant) -> void:
-    if error:
-        print("Error resetting achievements %s" % error)
-    else:
-        print("Reset complete")
-)
+	GKAchievement.reset_achivements(func(error: Variant) -> void:
+	    if error:
+	        print("Error resetting achievements %s" % error)
+	    else:
+	        print("Reset complete")
+	)
 	[/gdscript]
 	[/codeblock]
 	</description>

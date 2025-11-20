@@ -4,32 +4,32 @@
 	Metadata for every achievement that is defined in App Store Connect.
 	</brief_description>
 	<description>
-	[code]GKAchievementDescription[/code] exposes the localized text, group assignments, and icon that you configure for each achievement. Use [method load_achievement_descriptions] as shown in [code]GameCenterGuide.md[/code] to list everything the player can unlock, even before they have reported progress. Apple&#39;s documentation lives at [url]https://developer.apple.com/documentation/gamekit/gkachievementdescription[/url].
+	[code]GKAchievementDescription[/code] exposes the localized text, group assignments, and icon that you configure for each achievement. Use [method load_achievement_descriptions] as shown in [code]GameCenterGuide.md[/code] to list everything the player can unlock, even before they have reported progress. Apple&#39;s documentation lives at [url=https://developer.apple.com/documentation/gamekit/gkachievementdescription]Apple&#39;s GKAchievementDescription reference[/url].
 
 	Listing descriptions (guide sample):
 	[codeblock]
 	[gdscript]
-GKAchievementDescription.load_achievement_descriptions(func(descriptions: Array[GKAchievementDescription], error: Variant) -> void:
-    if error:
-        print("Load achievement description error %s" % error)
-    else:
-        for description in descriptions:
-            print("Achievement Description ID: %s" % description.identifier)
-            print("    Unachieved: %s" % description.unachieved_description)
-            print("    Achieved: %s" % description.achieved_description)
-)
+	GKAchievementDescription.load_achievement_descriptions(func(descriptions: Array[GKAchievementDescription], error: Variant) -> void:
+	    if error:
+	        print("Load achievement description error %s" % error)
+	    else:
+	        for description in descriptions:
+	            print("Achievement Description ID: %s" % description.identifier)
+	            print("    Unachieved: %s" % description.unachieved_description)
+	            print("    Achieved: %s" % description.achieved_description)
+	)
 	[/gdscript]
 	[/codeblock]
 
 	Loading an image sample (assuming [code]description[/code] is one of the loaded entries):
 	[codeblock]
 	[gdscript]
-description.load_image(func(image: Image, error: Variant) -> void:
-    if error == null:
-        $texture_rect.texture = ImageTexture.create_from_image(image)
-    else:
-        print("Error loading achievement image %s" % error)
-)
+	description.load_image(func(image: Image, error: Variant) -> void:
+	    if error == null:
+	        $texture_rect.texture = ImageTexture.create_from_image(image)
+	    else:
+	        print("Error loading achievement image %s" % error)
+	)
 	[/gdscript]
 	[/codeblock]
 	</description>

@@ -4,18 +4,18 @@
 	Configures how many players Game Center should recruit for a realtime match.
 	</brief_description>
 	<description>
-	Instantiate [code]GKMatchRequest[/code], set the minimum/maximum player counts and invite message, then either create a [class GKMatchmakerViewController] (for full UI control) or call [method @GDScript.GKMatchmakerViewController.request_match] as shown in [code]GameCenterGuide.md[/code]. The optional [code]MatchType[/code] argument lets you switch between peer-to-peer, hosted, or turn-based matchmaking. Apple&#39;s guide is at [url]https://developer.apple.com/documentation/gamekit/gkmatchrequest[/url].
+	Instantiate [code]GKMatchRequest[/code], set the minimum/maximum player counts and invite message, then either create a [code]GKMatchmakerViewController[/code] (for full UI control) or call [method GKMatchmakerViewController.request_match] as shown in [code]GameCenterGuide.md[/code]. The optional [code]MatchType[/code] argument lets you switch between peer-to-peer, hosted, or turn-based matchmaking. Apple&#39;s guide is at [url=https://developer.apple.com/documentation/gamekit/gkmatchrequest]Apple&#39;s GKMatchRequest reference[/url].
 
 	Configuration snippet from the guide:
 	[codeblock]
 	[gdscript]
-var request := GKMatchRequest.new()
-request.max_players = 2
-request.min_players = 1
-request.invite_message = "Join me in a quest to fun"
+	var request := GKMatchRequest.new()
+	request.max_players = 2
+	request.min_players = 1
+	request.invite_message = "Join me in a quest to fun"
 
-var max_supported := GKMatchRequest.max_players_allowed_for_match(GKMatchRequest.MatchType.peerToPeer)
-print("Peer-to-peer supports up to %d players" % max_supported)
+	var max_supported := GKMatchRequest.max_players_allowed_for_match(GKMatchRequest.MatchType.peerToPeer)
+	print("Peer-to-peer supports up to %d players" % max_supported)
 	[/gdscript]
 	[/codeblock]
 	</description>
@@ -24,7 +24,7 @@ print("Peer-to-peer supports up to %d players" % max_supported)
 	<methods>
 		<method name="max_players_allowed_for_match" qualifiers="static">
 			<return type="int" />
-			<param index="0" name="forType" type="MatchType" />
+			<param index="0" name="forType" type="int" enum="GKMatchRequest.MatchType" />
 			<description>
 				Returns Apple&#39;s maximum supported player count for the supplied match type ([code]peer_to_peer[/code], [code]hosted[/code], or [code]turn_based[/code]).
 			</description>
@@ -44,4 +44,15 @@ print("Peer-to-peer supports up to %d players" % max_supported)
 			Minimum player count required before the match can start.
 		</member>
 	</members>
+	<constants>
+		<constant name="peerToPeer" value="0" enum="MatchType">
+			Requests the peer-to-peer matchmaking flow.
+		</constant>
+		<constant name="hosted" value="1" enum="MatchType">
+			Requests a server-hosted match managed outside the local device.
+		</constant>
+		<constant name="turnBased" value="2" enum="MatchType">
+			Requests a turn-based match that exchanges moves asynchronously.
+		</constant>
+	</constants>
 </class>
