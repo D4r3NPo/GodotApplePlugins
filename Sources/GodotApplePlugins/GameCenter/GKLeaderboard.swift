@@ -83,9 +83,12 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
             return VariantDictionary()
         }
     }
-    // Not sure how to surface dates to Godot
-    //@Export var startDate:
-    //@Export var endDate:
+    @Export var startDate: Double {
+        board.startDate?.timeIntervalSince1970 ?? 0
+    }
+    @Export var endDate: {
+        board.endDate?.timeIntervalSince1970 ?? 0
+    }
     @Export var duration: Double { board.duration }
 
     @Callable

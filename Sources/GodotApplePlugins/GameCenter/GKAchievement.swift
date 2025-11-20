@@ -48,7 +48,9 @@ class GKAchievement: RefCounted, @unchecked Sendable {
         get { achievement.showsCompletionBanner }
         set { achievement.showsCompletionBanner = newValue }
     }
-    // TODO: lastReportedDate - how to encode Dates in Godot
+    @Export var lastReportedDate: Double {
+        achievement.lastReportedDate.timeIntervalSince1970
+    }
 
     /// The callback is invoked with nil on success, or a string with a description of the error
     @Callable()
