@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="AVAudioSession" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
+	Controls the shared iOS/tvOS audio session from GDScript.
 	</brief_description>
 	<description>
+	Use this helper to select one of Apple&#39;s predefined [code]AVAudioSession[/code] categories so your Godot project can mix or duck audio according to platform expectations. It is most useful on mobile builds where the engine needs to share the audio device with the system music player or with voice chat as described in [code]GameCenterGuide.md[/code]. See Apple&#39;s audio session overview at [url]https://developer.apple.com/documentation/avfaudio/avaudiosession[/url].
 	</description>
 	<tutorials>
 	</tutorials>
 	<members>
 		<member name="category" type="int" setter="set_category" getter="get_category" default="6">
+			Selects the Apple audio session category. Use one of the [enum SessionCategory] constants to decide whether your game mixes with other apps, records audio, or routes voice chat.
 		</member>
 	</members>
 	<constants>
 		<constant name="ambient" value="0" enum="SessionCategory">
+			Plays audio quietly and mixes with other apps, ideal for games that should respect background music.
 		</constant>
 		<constant name="multiRoute" value="1" enum="SessionCategory">
+			Allows simultaneous input and output on multiple ports such as iPad USB headsets and speakers.
 		</constant>
 		<constant name="playAndRecord" value="2" enum="SessionCategory">
+			Enables full duplex audio for gameplay that records the microphone while playing effects.
 		</constant>
 		<constant name="playback" value="3" enum="SessionCategory">
+			Optimised for playback only and silences system music while your game is active.
 		</constant>
 		<constant name="record" value="4" enum="SessionCategory">
+			Recording-only mode for utilities that only capture audio.
 		</constant>
 		<constant name="soloAmbient" value="5" enum="SessionCategory">
+			Similar to [constant ambient] but pauses other audio sessions when your project starts.
 		</constant>
 		<constant name="unknown" value="6" enum="SessionCategory">
+			Default fallback when the platform does not expose audio sessions (macOS desktop).
 		</constant>
 	</constants>
 </class>
