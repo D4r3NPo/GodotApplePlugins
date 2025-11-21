@@ -86,8 +86,8 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
     @Export var startDate: Double {
         board.startDate?.timeIntervalSince1970 ?? 0
     }
-    @Export var endDate: {
-        board.endDate?.timeIntervalSince1970 ?? 0
+    @Export var nextStartDate: Double {
+        board.startDate?.timeIntervalSince1970 ?? 0
     }
     @Export var duration: Double { board.duration }
 
