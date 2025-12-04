@@ -22,14 +22,27 @@ import SwiftGodotRuntime
         GKMatchmakerViewController.self,
         GKMatchRequest.self,
         GKPlayer.self,
-        GKSavedGame.self
+        GKSavedGame.self,
+
+        ProductView.self,
+        StoreKitManager.self,
+        StoreProduct.self,
+        StoreTransaction.self,
+        StoreView.self,
+        SubscriptionOfferView.self,
+        SubscriptionStoreView.self
     ],
     enums: [
+        AVAudioSession.SessionCategory.self,
+
         GKGameCenterViewController.State.self,
         GKLeaderboard.AppleLeaderboardType.self,
         GKLeaderboard.TimeScope.self,
         GKLeaderboard.PlayerScope.self,
         GKMatch.SendDataMode.self,
         GKMatchRequest.MatchType.self,
-        AVAudioSession.SessionCategory.self,
+
+        ProductView.ViewStyle.self,
+        StoreKitManager.StoreKitStatus.self,
+        SubscriptionStoreView.ControlStyle.self
     ])

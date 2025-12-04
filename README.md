@@ -7,6 +7,7 @@ and for iOS, export your iOS project and run.
 The Makefile should produce a set of gdextensions that you can pick and choose.
 
 * [GameCenter Integration Guide](Sources/GodotApplePlugins/GameCenter/GameCenterGuide.md)
+* StoreKit2 bindings.
 
 The release contains both binaries for MacOS as dynamic libraries and
 an iOS xcframework compiled with the "Mergeable Library" feature.
