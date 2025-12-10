@@ -33,7 +33,7 @@
 	<signals>
 		<signal name="products_request_completed">
 			<param index="0" name="products" type="Array" />
-			<param index="1" name="status" type="int" enum="StoreKitManager.StoreKitStatus" />
+			<param index="1" name="status" type="int" />
 			<description>
 				Emitted when a product request completes.
 				[param products] is an Array of [StoreProduct]s (or nulls).
@@ -42,7 +42,7 @@
 		</signal>
 		<signal name="purchase_completed">
 			<param index="0" name="transaction" type="StoreTransaction" />
-			<param index="1" name="status" type="int" enum="StoreKitManager.StoreKitStatus" />
+			<param index="1" name="status" type="int" />
 			<param index="2" name="error_message" type="String" />
 			<description>
 				Emitted when a purchase completes.
@@ -51,22 +51,15 @@
 				[param error_message] contains error details if failed.
 			</description>
 		</signal>
-		<signal name="purchase_intent">
-			<param index="0" name="product" type="StoreProduct" />
-			<description>
-				Emitted when the App Store detects a purchase intent (e.g., from a promotional link).
-				The app should initiate the purchase flow for the [param product].
-			</description>
-		</signal>
 		<signal name="restore_completed">
-			<param index="0" name="arg1" type="int" />
-			<param index="1" name="arg2" type="String" />
+			<param index="0" name="status" type="int" />
+			<param index="1" name="error_message" type="String" />
 			<description>
 				Emitted when the restore process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
 			</description>
 		</signal>
 		<signal name="transaction_updated">
-			<param index="0" name="arg1" type="StoreTransaction" />
+			<param index="0" name="transaction" type="StoreTransaction" />
 			<description>
 				Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). `arg1` is the updated [StoreTransaction].
 			</description>
