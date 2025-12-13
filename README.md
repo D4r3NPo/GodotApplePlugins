@@ -66,7 +66,7 @@ func _ready():
 
 func _on_sign_in_button_pressed():
     # Request full name and email
-    auth_controller.perform_apple_id_request(["full_name", "email"])
+    auth_controller.signin_with_scopes(["full_name", "email"])
 
 func _on_authorization_completed(credential):
     if credential is ASAuthorizationAppleIDCredential:
