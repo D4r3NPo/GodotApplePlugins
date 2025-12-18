@@ -13,7 +13,8 @@ import SwiftGodotRuntime
         AVAudioSession.self,
 
         Foundation.self,
-        
+        AppleURL.self,
+
         GameCenterManager.self,
         GKAchievement.self,
         GKAchievementDescription.self,
@@ -39,6 +40,8 @@ import SwiftGodotRuntime
         StoreView.self,
         SubscriptionOfferView.self,
         SubscriptionStoreView.self,
+
+        AppleFilePicker.self,
 
         ASAuthorizationAppleIDCredential.self,
         ASPasswordCredential.self,

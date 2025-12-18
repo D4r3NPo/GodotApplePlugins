@@ -29,7 +29,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "08638175839a1c28dca9557dc1d029d6ce0f124e")
+        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "61f258c8a679ca8e2b637befb77daf1a640a5349")
         // For local development:
         //.package(path: "../SwiftGodot")
     ],
