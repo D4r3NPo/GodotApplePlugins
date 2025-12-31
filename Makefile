@@ -2,7 +2,7 @@
 
 # Allow overriding common build knobs.
 CONFIG ?= Release
-DESTINATIONS ?= generic/platform=iOS platform=macOS,arch=arm64 platform=macOS,arch=x86_64
+DESTINATIONS ?= generic/platform=iOS platform=macOS,arch=arm64
 DERIVED_DATA ?= $(CURDIR)/.xcodebuild
 WORKSPACE ?= .swiftpm/xcode/package.xcworkspace
 SCHEME ?= GodotApplePlugins
